@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core'
 
 @Component({
-    selector: 'hello-world-app',
-    template: 'Say : {{helloText}}'
+    template: 'Say : {{helloText}}',
+    selector: 'hello-world-app'
 })
 export class HelloWorld{
     helloText:string="Hello World from Angular2"
