@@ -1,3 +1,4 @@
+//Deklaration der verwendeten Zusatzmodule
 var gulp = require('gulp');
 var util = require('gulp-util');
 var SystemBuilder = require('systemjs-builder');
@@ -17,7 +18,7 @@ var maven = require('gulp-maven-deploy');
 
 var tsProject = ts.createProject(tsConfig.compilerOptions);
 
-//copy dependencies to dist folder
+// Kopiert alle externen JS-Dateien in den Ziel Ordner (dist/vendor)
 gulp.task('copy:deps', function () {
     return gulp.src([
         'node_modules/jquery/dist/jquery.js',
@@ -31,7 +32,7 @@ gulp.task('copy:deps', function () {
     ]).pipe(gulp.dest('dist/vendor'));
 });
 
-//copy css dependencies to dist folder
+// Kopiert alle externen CSS-Dateien in den Ziel Ordner (dist/app/assets/css)
 gulp.task('copy:styledeps', function () {
     gulp.src([
         'node_modules/bootstrap/dist/fonts/*',
@@ -40,11 +41,11 @@ gulp.task('copy:styledeps', function () {
 
     return gulp.src([
         'node_modules/bootstrap/dist/css/bootstrap.css',
-        'node_modules/font-awesome/css/font-awesome.css',
+        'node_modules/font-awesome/css/font-awesome.css'
     ]).pipe(gulp.dest('dist/app/assets/css'));
 });
 
-//copy html/css/js files
+// Kopiert unsere statischen Dateien in den Ziel Ordner (dist)
 gulp.task('copy:src', function () {
     return gulp.src([
         'src/boot.js',
@@ -57,12 +58,12 @@ gulp.task('copy:src', function () {
             .pipe(connect.reload());
 });
 
-//clean the dist folder
+// Zielverzeichnis löschen
 gulp.task('clean', function (cb) {
     del('dist');
-})
+});
 
-//compile app typescript files
+// Kompiliet alle TypeScript Dateien ins Zielverzeichnis
 gulp.task('compile:app', function () {
     return gulp.src('src/**/*.ts')
             .pipe(ts(tsProject))
@@ -70,7 +71,9 @@ gulp.task('compile:app', function () {
             .pipe(connect.reload());
 });
 
-//build deployment version
+// erzeugt aus den HTML/CSS Dateien der Komponenten Inline-Elemente
+// = aus templateUrl: 'some/url' wird template: '<html>....'
+// = Minimierung der Requests
 gulp.task('build:inline', function () {
     return gulp.src('src/**/*.ts')
             .pipe(inlineNg2Template({
@@ -78,31 +81,37 @@ gulp.task('build:inline', function () {
                 target: 'es5'
             }))
             .pipe(ts(tsProject))
-            .pipe(gulp.dest('dist'))
+            .pipe(gulp.dest('dist'));
 });
 
+// Minimierung der Dateigrößen von JavaScript Dateien
 gulp.task('build:uglify', function () {
     return gulp.src(['dist/*.js', 'dist/**/*.js'])
             .pipe(uglify())
             .pipe(gulp.dest('./dist'));
 });
 
+// Minimierung der Dateigrößen von CSS Dateien
 gulp.task('build:cssnano', function () {
     return gulp.src('dist/**/*.css')
             .pipe(cssnano())
             .pipe(gulp.dest('./dist'));
 });
 
+// Ersetzt die Script/CSS Referenzen in der HTML Datei mit unseren minimierten Versionen
+// Dazu existieren in der index.html speziell ausgezeichnete Bereiche
 gulp.task('build:useref', function () {
     return gulp.src('dist/index.html')
             .pipe(useref())
             .pipe(gulp.dest('dist'));
 });
 
+// Entfernen der nicht minimierten Versionen und Komponenten Dateien 
 gulp.task('build:clean', function () {
-    del(['dist/vendor', 'dist/app/assets/css', 'dist/app/components/**/*.html', 'dist/app/components/**/*.css'])
+    del(['dist/vendor', 'dist/app/assets/css', 'dist/app/components/**/*.html', 'dist/app/components/**/*.css']);
 });
 
+// Erzeugt aus dem Zielverzeichnis ein Maven-Artefakt und installiert dies im lokalen Repository
 gulp.task('build:deploy-local', function () {
     gulp.src('dist')
             .pipe(maven.install({
@@ -110,11 +119,16 @@ gulp.task('build:deploy-local', function () {
                     'groupId': 'de.gedoplan',
                     'type': 'war'
                 }
-            }))
+            }));
 });
 
 
-//live reload server
+// Default Task = Kompilieren und Kopieren der Dateien + Webserver starten
+gulp.task('default', ['server'], function () {
+    gulp.watch(['src/**/*.ts'], ['compile:app']);
+    gulp.watch(['src/**/.js', 'src/**/*.html', 'src/**/*.css'], ['copy:src']);
+});
+
 gulp.task('server', ['copy:deps', 'copy:styledeps', 'copy:src', 'compile:app'], function () {
     connect.server({
         root: 'dist',
@@ -130,11 +144,9 @@ gulp.task('server', ['copy:deps', 'copy:styledeps', 'copy:src', 'compile:app'], 
         }
     });
 });
+
+// Produktions-Artefakt erzeugen: zusätzlich zu den Default-Tasks werden Code Optimierungen durchgeführt
 gulp.task('package', function () {
     runSequence('copy:deps', 'copy:styledeps', 'copy:src', 'build:inline', 'build:uglify', 'build:cssnano', 'build:useref', 'build:clean', 'build:deploy-local');
 });
-//default task
-gulp.task('default', ['server'], function () {
-    gulp.watch(['src/**/*.ts'], ['compile:app']);
-    gulp.watch(['src/**/.js', 'src/**/*.html', 'src/**/*.css'], ['copy:src']);
-});
+
