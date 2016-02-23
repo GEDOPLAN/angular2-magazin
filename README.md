@@ -10,5 +10,10 @@ https://github.com/angular/angular2-seed/tree/systemjs
 - Clone or fork this repository
 - Make sure you have [node.js](https://nodejs.org/) installed
 - run `npm install` to install dependencies
+
+Development:
 - run `npm start` to fire up dev server
-- open browser to `http://localhost:8080`
+- open browser to `http://localhost:3000`
+
+Production-Build:
+- run `npm package`
