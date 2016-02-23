@@ -1,5 +1,6 @@
 {
     "elements": {
+        "app": {},
         "router-outlet": {}
     },
     "attributes": {}
