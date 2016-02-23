@@ -7,7 +7,6 @@ var ts = require('gulp-typescript');
 var tsConfig = require('./tsconfig.json');
 var connect = require('gulp-connect');
 var proxy = require('http-proxy-middleware');
-var rimraf = require('gulp-rimraf');
 var uglify = require('gulp-uglify');
 var useref = require('gulp-useref');
 var cssnano = require('gulp-cssnano');
@@ -57,6 +56,17 @@ gulp.task('copy:src', function () {
             .pipe(gulp.dest('dist'))
             .pipe(connect.reload());
 });
+
+// Unser extrem simples "Hello World" Beispiel
+gulp.task('copy:helloworld', function () {
+    return gulp.src([
+        'src/helloworld/**/*'
+    ])
+            .pipe(gulp.dest('dist/helloworld'))
+            .pipe(connect.reload());
+});
+
+
 
 // Zielverzeichnis löschen
 gulp.task('clean', function (cb) {
@@ -134,7 +144,7 @@ gulp.task('server', ['copy:deps', 'copy:styledeps', 'copy:src', 'compile:app'], 
         root: 'dist',
         livereload: true,
         port: 3000,
-        fallback: 'dist/index.html',
+        //fallback: 'dist/index.html',
         middleware: function (connect, opt) {
             return [
                 proxy('/webresources', {
