@@ -1,8 +1,10 @@
-## angular2-seed
+## angular2-magazin
 
-A simple starter project demonstrating the basic concepts of Angular2.
+Begleitprojekt zum Beitrag "Angular2" in der Gedoplan aktuell
+http://gedoplan-it-consulting.de/
 
-Work in progress!
+Basierend auf dem offiziellen Angular2 Seed Projekt
+https://github.com/angular/angular2-seed/tree/systemjs
 
 ### Usage
 - Clone or fork this repository
