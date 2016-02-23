@@ -7,3 +7,4 @@ import {Component} from 'angular2/core'
 export class HelloWorld{
     helloText:string="Hello World from Angular2"
 }
+
