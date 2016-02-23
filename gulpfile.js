@@ -144,7 +144,7 @@ gulp.task('server', ['copy:deps', 'copy:styledeps', 'copy:src', 'compile:app'], 
         root: 'dist',
         livereload: true,
         port: 3000,
-        //fallback: 'dist/index.html',
+        fallback: 'dist/index.html',
         middleware: function (connect, opt) {
             return [
                 proxy('/webresources', {
