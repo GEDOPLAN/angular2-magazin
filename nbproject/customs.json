@@ -3,5 +3,7 @@
         "app": {},
         "router-outlet": {}
     },
-    "attributes": {}
+    "attributes": {
+        "[(ngmodel)]": {}
+    }
 }

@@ -1,0 +1,17 @@
+<div class="container">
+    
+    <fieldset>
+        <legend>Repository-Information</legend>
+            <label>ID:</label>
+            <div>{{repositoryInformation?.id}}</div>
+            <label>Name:</label>
+            <div>{{repositoryInformation?.name}}</div>
+            <label>Beschreibung:</label>
+            <div>{{repositoryInformation?.description}}</div>
+            
+            <label>Links:</label>
+            <ul>
+                <li *ngFor="#link of getLinks()">{{link.name}} : {{link.url}}</li>
+            </ul>
+    </fieldset>
+</div>

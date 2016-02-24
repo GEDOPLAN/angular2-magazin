@@ -5,12 +5,12 @@ import {Comment} from '../models/GithubModels'
     templateUrl: 'app/components/form/form.html',
     styleUrls: ['app/components/form/form.css']
 })
-export class Form{
+export class Form {
     comment: Comment
     comments: Comment[]
 
-    constructor() { 
-        this.comment=new Comment();
+    constructor() {
+        this.comment = new Comment();
         this.comments = this.loadComments();
     }
 
@@ -26,8 +26,8 @@ export class Form{
 
     loadComments(): Comment[] {
         if (!this.comments) {
-            var jsonString=sessionStorage.getItem("ng2magazin-comments");
-            this.comments = jsonString ? JSON.parse(jsonString): [];
+            var jsonString = sessionStorage.getItem("ng2magazin-comments");
+            this.comments = jsonString ? JSON.parse(jsonString) : [];
         }
 
         return this.comments;
