@@ -16,7 +16,7 @@ html,body{
     min-height: 100%;
 }
 
-.footer{
+footer{
     background-color: #f5f5f5;
     position: relative;
     margin-top: -40px;
@@ -26,6 +26,10 @@ html,body{
     text-align: center;
 }
 
-.footer * {
+footer * {
     max-height: 30px;
+}
+
+label{
+    padding-top: 14px;
 }

@@ -1,0 +1,12 @@
+.textarea-large{
+    width: 100%;
+    min-height: 10em;
+}
+
+.form-buttons{
+    padding-top: 1em;
+}
+
+.form-buttons > button{
+    width: 100%;
+}

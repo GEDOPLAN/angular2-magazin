@@ -1,0 +1,25 @@
+<form novalidate #form="ngForm">
+    <div class="container">
+        <div class="col-sm-12 col-md-4">
+            <label for="username">Benutzername:</label>
+            <input ngControl="username" class="form-control" id="username" type="text" [(ngModel)]="comment.username" required/>
+        </div>
+        <div class="col-sm-12 col-md-12">
+            <label class="control-label" for="comment">Kommentar:</label>
+            <textarea ngControl="commenttext" class="form-control textarea-large" id="comment" [(ngModel)]="comment.text" required></textarea>
+        </div>
+        <div class="col-sm-6 col-md-3 col-md-offset-2 form-buttons">
+            <button class="btn btn-primary btn-lg" (click)="addComment()" [disabled]="!form.valid">speichern</button>
+        </div>
+        <div class="col-sm-6 col-md-3 col-md-offset-2 form-buttons">
+            <button class="btn btn-primary btn-lg" (click)="clearComment()">abbrechen</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <fieldset>
+            <legend>Kommentare</legend>
+            <div *ngFor="#comment of comments">{{comment.username}} : {{comment.text}}</div>
+        </fieldset>
+    </div>
+</form>
