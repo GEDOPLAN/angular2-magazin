@@ -12,6 +12,8 @@ export class Github implements OnInit {
     constructor(private github: GithubService) { }
 
     repositoryInformation: Repository;
+    
+    repoLinks;
 
     ngOnInit() {
         this.github.getRepositoryDetails().subscribe(
@@ -22,11 +24,13 @@ export class Github implements OnInit {
     }
 
     getLinks() {
-        if (this.repositoryInformation) {
-            return Object.keys(this.repositoryInformation)
+        if (this.repositoryInformation && !this.repoLinks) {
+            this.repoLinks=Object.keys(this.repositoryInformation)
                 .filter(varname => ['url', 'collaborators', 'comments_url', 'git_url', 'svn_url'].indexOf(varname) != -1)
                 .map(varname => { return { name: varname, url: this.repositoryInformation[varname] } });
         }
+        
+        return this.repoLinks;
     }
 
 }
