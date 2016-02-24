@@ -5,6 +5,7 @@ var SystemBuilder = require('systemjs-builder');
 var watch = require('gulp-watch');
 var ts = require('gulp-typescript');
 var tsConfig = require('./tsconfig.json');
+var sourcemaps = require('gulp-sourcemaps');
 var connect = require('gulp-connect');
 var proxy = require('http-proxy-middleware');
 var uglify = require('gulp-uglify');
@@ -27,7 +28,7 @@ gulp.task('copy:deps', function () {
         'node_modules/angular2/bundles/router.js',
         'node_modules/rxjs/bundles/Rx.js',
         'node_modules/systemjs/dist/system.js',
-        'node_modules/bootstrap/dist/js/bootstrap.js',
+        'node_modules/bootstrap/dist/js/bootstrap.js'
     ]).pipe(gulp.dest('dist/vendor'));
 });
 
@@ -35,7 +36,7 @@ gulp.task('copy:deps', function () {
 gulp.task('copy:styledeps', function () {
     gulp.src([
         'node_modules/bootstrap/dist/fonts/*',
-        'node_modules/font-awesome/fonts/*',
+        'node_modules/font-awesome/fonts/*'
     ]).pipe(gulp.dest('dist/app/assets/fonts/'));
 
     return gulp.src([
@@ -76,7 +77,9 @@ gulp.task('clean', function (cb) {
 // Kompiliet alle TypeScript Dateien ins Zielverzeichnis
 gulp.task('compile:app', function () {
     return gulp.src('src/**/*.ts')
+            .pipe(sourcemaps.init())
             .pipe(ts(tsProject))
+            .pipe(sourcemaps.write())
             .pipe(gulp.dest('./dist'))
             .pipe(connect.reload());
 });
