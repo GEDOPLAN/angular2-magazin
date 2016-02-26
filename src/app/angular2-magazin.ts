@@ -6,6 +6,7 @@ import {HelloWorld} from './components/helloworld/helloworld'
 import {Gulp} from './components/gulp/gulp'
 import {Form} from './components/form/form'
 import {Github} from './components/github/github'
+import {Routing} from './components/routing/routing'
 
 
 @Component({
@@ -20,6 +21,7 @@ import {Github} from './components/github/github'
         new Route({ path: '/hello', component: HelloWorld, name: 'HelloWorld'}),
         new Route({ path: '/forms', component: Form, name: 'Form'}),
         new Route({ path: '/services', component: Github, name: 'Github'}),
+        new Route({ path: '/routing/...', component: Routing, name: 'Routing'}),
         new Route({ path: '/build', component: Gulp, name: 'Gulp'}),
 ])
 export class App {

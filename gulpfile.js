@@ -15,6 +15,7 @@ var inlineNg2Template = require('gulp-inline-ng2-template');
 var runSequence = require('run-sequence');
 var del = require('del');
 var maven = require('gulp-maven-deploy');
+var war= require('gulp-war');
 
 var tsProject = ts.createProject(tsConfig.compilerOptions);
 
@@ -124,13 +125,30 @@ gulp.task('build:clean', function () {
     del(['dist/vendor', 'dist/app/assets/css', 'dist/app/components/**/*.html', 'dist/app/components/**/*.css']);
 });
 
+// generriert eine web.xml für unser Angular-WAR
+gulp.task('build:webxml', function () {
+    return gulp.src('./dist')
+        .pipe(war({
+            welcome: 'index.html',
+            displayName: 'angular2-magazin',
+            webappExtras: [
+                '<error-page><error-code>404</error-code><location>/index.html</location></error-page>'
+            ]
+        }))
+        .pipe(gulp.dest("./dist"));
+});
+
+
+
 // Erzeugt aus dem Zielverzeichnis ein Maven-Artefakt und installiert dies im lokalen Repository
 gulp.task('build:deploy-local', function () {
     gulp.src('dist')
             .pipe(maven.install({
                 'config': {
                     'groupId': 'de.gedoplan',
-                    'type': 'war'
+                    'type': 'war',
+                    'artifactId': 'angular2-magazin',
+                    'finalName': 'angular2-magazin'
                 }
             }));
 });
@@ -160,6 +178,6 @@ gulp.task('server', ['copy:deps', 'copy:styledeps', 'copy:src', 'compile:app'], 
 
 // Produktions-Artefakt erzeugen: zusätzlich zu den Default-Tasks werden Code Optimierungen durchgeführt
 gulp.task('package', function () {
-    runSequence('copy:deps', 'copy:styledeps', 'copy:src', 'build:inline', 'build:uglify', 'build:cssnano', 'build:useref', 'build:clean', 'build:deploy-local');
+    runSequence('copy:deps', 'copy:styledeps', 'copy:src', 'build:inline', 'build:uglify', 'build:cssnano', 'build:useref', 'build:clean', 'build:webxml',  'build:deploy-local');
 });
 

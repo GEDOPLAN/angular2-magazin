@@ -19,34 +19,45 @@
                         <a [routerLink]="['HelloWorld']">HelloWorld</a>
                     </li>
                     <li>
-                       <a [routerLink]="['Form']">Forms</a>
+                        <a [routerLink]="['Form']">Forms</a>
                     </li>
                     <li>
-                         <a [routerLink]="['Github']">Services</a>
+                        <a [routerLink]="['Github']">Services</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Routing<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a [routerLink]="['Routing']">Routing</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['Routing', 'Page3', {text: 'FromTemplate'}]">Routing + Parameter</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a [routerLink]="['Gulp']">BuildProzess</a>
                     </li>
-<!--                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="full-width.html">Full Width Page</a>
-                            </li>
-                            <li>
-                                <a href="sidebar.html">Sidebar Page</a>
-                            </li>
-                            <li>
-                                <a href="faq.html">FAQ</a>
-                            </li>
-                            <li>
-                                <a href="404.html">404</a>
-                            </li>
-                            <li>
-                                <a href="pricing.html">Pricing Table</a>
-                            </li>
-                        </ul>
-                    </li>-->
+                    <!--                    <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="full-width.html">Full Width Page</a>
+                                                </li>
+                                                <li>
+                                                    <a href="sidebar.html">Sidebar Page</a>
+                                                </li>
+                                                <li>
+                                                    <a href="faq.html">FAQ</a>
+                                                </li>
+                                                <li>
+                                                    <a href="404.html">404</a>
+                                                </li>
+                                                <li>
+                                                    <a href="pricing.html">Pricing Table</a>
+                                                </li>
+                                            </ul>
+                                        </li>-->
                 </ul>
             </div>
         </div>
