@@ -2,10 +2,10 @@ import {Component, OnInit} from 'angular2/core'
 import {GithubService} from '../../services/GithubServices'
 import {Repository, RepositoryOwner} from '../models/GithubModels'
 
-
 @Component({
     templateUrl: 'app/components/github/github.html',
-    styleUrls: ['app/components/github/github.css']
+    styleUrls: ['app/components/github/github.css'],
+    providers: [GithubService]
 })
 export class Github implements OnInit {
 
