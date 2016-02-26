@@ -7,14 +7,14 @@ import {Gulp} from './components/gulp/gulp'
 import {Form} from './components/form/form'
 import {Github} from './components/github/github'
 import {Routing} from './components/routing/routing'
+import {ROUTER_PROVIDERS} from 'angular2/router';
 
 
 @Component({
     selector: 'app',
-    providers: [],
     templateUrl: 'app/template.html',
+    providers: [ROUTER_PROVIDERS],
     directives: [ROUTER_DIRECTIVES],
-    pipes: []
 })
 @RouteConfig([
         new Route({ path: '/home', component: Home, name: 'Home', useAsDefault: true}),
