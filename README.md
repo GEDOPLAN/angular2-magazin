@@ -7,13 +7,13 @@ Basierend auf dem offiziellen Angular2 Seed Projekt
 https://github.com/angular/angular2-seed/tree/systemjs
 
 ### Usage
-- Clone or fork this repository
-- Make sure you have [node.js](https://nodejs.org/) installed
-- run `npm install` to install dependencies
+- Git Repository Clonen
+-  node.js muss installiert sein: (https://nodejs.org/)
+- im Projektverzeichnis ausführen: `npm install` (installiert alle Abhänigkeiten)
 
-Development:
-- run `npm start` to fire up dev server
-- open browser to `http://localhost:3000`
+Entwicklung:
+- im Projektverzeichnis ausführen `npm start` (Anwendung vorbereiten und Dev-Server starten)
+- Browser: `http://localhost:3000`
 
 Production-Build:
-- run `npm package`
+- im Projektverzeichnis ausführen `npm package` (Anwendung minimieren und Maven Artefakt builden)
