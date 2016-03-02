@@ -6,6 +6,9 @@ http://gedoplan-it-consulting.de/
 Basierend auf dem offiziellen Angular2 Seed Projekt
 https://github.com/angular/angular2-seed/tree/systemjs
 
+Live zu sehen unter:
+http://showroom-dmathmann.rhcloud.com/angular2-magazin/
+
 ### Usage
 - Git Repository Clonen
 -  node.js muss installiert sein: (https://nodejs.org/)
