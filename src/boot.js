@@ -1,4 +1,3 @@
-//es5 file to bootstrap our application
 System.config({
 	packages: {
 		app: {
