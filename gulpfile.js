@@ -16,6 +16,7 @@ var gulp = require('gulp'),
         war = require('gulp-war'),
         gulpif = require('gulp-if'),
         lazypipe = require('lazypipe'),
+        replace = require('gulp-replace-task'),
         tsProject = ts.createProject(tsConfig.compilerOptions);
 
 // Kopiert alle externen Fonts den Ziel Ordner (dist/app/assets/fonts)
@@ -43,6 +44,14 @@ gulp.task('development:copy', function () {
 gulp.task('development:html', function () {
     return gulp.src('src/index.html')
             .pipe(useref())
+            .pipe(replace({
+                patterns: [
+                    {
+                        match: 'basehref',
+                        replacement: "/"
+                    }
+                ]
+            }))
             .pipe(gulp.dest('dist'))
             .pipe(connect.reload());
 });
@@ -62,6 +71,14 @@ gulp.task('development:compile', function () {
 gulp.task('package:html', function () {
     return gulp.src('src/index.html')
             .pipe(useref())
+            .pipe(replace({
+                patterns: [
+                    {
+                        match: 'basehref',
+                        replacement: "/angular2-magazin/"
+                    }
+                ]
+            }))
             .pipe(gulpif('*.js', uglify()))
             .pipe(gulpif('*.css', cssnano()))
             .pipe(gulp.dest('dist'));

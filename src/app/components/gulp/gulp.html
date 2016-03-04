@@ -16,6 +16,7 @@
         war <span style="color: #333333">=</span> require(<span style="background-color: #fff0f0">&#39;gulp-war&#39;</span>),
         gulpif <span style="color: #333333">=</span> require(<span style="background-color: #fff0f0">&#39;gulp-if&#39;</span>),
         lazypipe <span style="color: #333333">=</span> require(<span style="background-color: #fff0f0">&#39;lazypipe&#39;</span>),
+        replace <span style="color: #333333">=</span> require(<span style="background-color: #fff0f0">&#39;gulp-replace-task&#39;</span>),
         tsProject <span style="color: #333333">=</span> ts.createProject(tsConfig.compilerOptions);
 
 <span style="color: #888888">// Kopiert alle externen Fonts den Ziel Ordner (dist/app/assets/fonts)</span>
@@ -43,6 +44,14 @@ gulp.task(<span style="background-color: #fff0f0">&#39;development:copy&#39;</sp
 gulp.task(<span style="background-color: #fff0f0">&#39;development:html&#39;</span>, <span style="color: #008800; font-weight: bold">function</span> () {
     <span style="color: #008800; font-weight: bold">return</span> gulp.src(<span style="background-color: #fff0f0">&#39;src/index.html&#39;</span>)
             .pipe(useref())
+            .pipe(replace({
+                patterns<span style="color: #333333">:</span> [
+                    {
+                        match<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;basehref&#39;</span>,
+                        replacement<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;/&quot;</span>
+                    }
+                ]
+            }))
             .pipe(gulp.dest(<span style="background-color: #fff0f0">&#39;dist&#39;</span>))
             .pipe(connect.reload());
 });
@@ -62,6 +71,14 @@ gulp.task(<span style="background-color: #fff0f0">&#39;development:compile&#39;<
 gulp.task(<span style="background-color: #fff0f0">&#39;package:html&#39;</span>, <span style="color: #008800; font-weight: bold">function</span> () {
     <span style="color: #008800; font-weight: bold">return</span> gulp.src(<span style="background-color: #fff0f0">&#39;src/index.html&#39;</span>)
             .pipe(useref())
+            .pipe(replace({
+                patterns<span style="color: #333333">:</span> [
+                    {
+                        match<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;basehref&#39;</span>,
+                        replacement<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;/angular2-magazin/&quot;</span>
+                    }
+                ]
+            }))
             .pipe(gulpif(<span style="background-color: #fff0f0">&#39;*.js&#39;</span>, uglify()))
             .pipe(gulpif(<span style="background-color: #fff0f0">&#39;*.css&#39;</span>, cssnano()))
             .pipe(gulp.dest(<span style="background-color: #fff0f0">&#39;dist&#39;</span>));
