@@ -24,7 +24,7 @@ import {Routing} from './components/routing/routing'
         new Route({ path: '/routing/...', component: Routing, name: 'Routing'}),
         new Route({ path: '/build', component: Gulp, name: 'Gulp'}),
 ])
-export class App {
+export class AppComponent {
 
     constructor() { }
 
