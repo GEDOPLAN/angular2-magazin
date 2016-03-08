@@ -1,6 +1,7 @@
 {
     "elements": {
         "app": {},
+        "hello-world-app": {},
         "router-outlet": {}
     },
     "attributes": {

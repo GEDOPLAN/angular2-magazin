@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core'
 
 @Component({
-    template: 'Say : {{helloText}}',
+    template: '<p>{{helloText}}</p>',
     selector: 'hello-world-app'
 })
 export class HelloWorld{

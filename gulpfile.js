@@ -128,7 +128,7 @@ gulp.task('default', ['server'], function () {
     gulp.watch(['src/app/components/**/*.html', 'src/app/components/**/*.css'], ['development:copy']);
 });
 
-gulp.task('server', ['copy:fonts', 'development:copy', 'development:html', 'development:compile'], function () {
+gulp.task('server', ['copy:fonts', 'development:copy', 'development:html', 'development:compile', 'copy:helloworld'], function () {
     connect.server({
         root: 'dist',
         livereload: true,
